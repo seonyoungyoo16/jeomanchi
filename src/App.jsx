@@ -9,12 +9,13 @@ import { createWeatherClient, previewWeather, seasonalWeather, weatherText, WEAT
 import { locationForDistance, nextDestination } from "./walk-route.mjs";
 import { createWalkRecords } from "./walk-records.mjs";
 import { createPostcard, postcardDetails, sharePostcard, downloadPostcard, GAME_URL } from "./walk-postcard.mjs";
+import { assetUrl } from "./deployment.mjs";
 
 const weatherClient = createWeatherClient();
 const climatePreview = import.meta.env.DEV ? previewWeather(window.location.search) : null;
 
 export function App() {
-  const canvasRef = useRef(null), gameRef = useRef(null), audioRef = useRef(null), dialogRef = useRef(null);
+  const canvasRef = useRef(null), gameRef = useRef(null), audioRef = useRef(null), dialogRef = useRef(null), logoRef = useRef(null);
   const controls = useRef(new DirectionInput());
   const [state, setState] = useState({ mode: "ready", distance: 0, time: 0 });
   const [loaded, setLoaded] = useState(false), [error, setError] = useState("");
@@ -141,7 +142,7 @@ export function App() {
         const token = cardSession.current.token;
         setCardStatus("산책 카드를 만들고 있어요.");
         if (roundScene) {
-          createPostcard(roundScene, details).then((postcard) => {
+          createPostcard(roundScene, details, logoRef.current).then((postcard) => {
             if (disposed || token !== cardSession.current.token) return;
             const url = URL.createObjectURL(postcard.blob);
             cardSession.current.url = url; setCard({ ...postcard, url }); setCardStatus("");
@@ -255,7 +256,7 @@ export function App() {
       <section className="game-stage" aria-label={"저만치 — " + location.name}>
         <canvas ref={canvasRef} className="scene" aria-label={"왜가리가 앞서가는 그림자를 쫓아 " + location.name + "을 걷는 게임"} />
         <header className="location">
-          <h1>저만치</h1>
+          <h1><img ref={logoRef} className="game-logo" src={assetUrl("brand/jeomanchi-symbol.svg")} alt="저만치" width="72" height="88" /></h1>
           <p className="climate-readout" aria-label={"서울 기준 " + weatherText(weather)}
             title={weather.observedAt ? "서울 날씨 · " + new Date(weather.observedAt).toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false }) + " 기준" : "서울 기준 계절 풍경 · 날씨 연결이 안 되어도 바로 걸을 수 있어요."}>
             {location.name + " · " + weatherText(weather)}
