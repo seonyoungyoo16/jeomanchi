@@ -14,15 +14,15 @@ export function postcardDetails(round, weather, now = new Date()) {
   });
 }
 
-export async function createPostcard(scene, details, brandImage) {
+export async function createPostcard(scene, details) {
   const canvas = document.createElement("canvas");
   canvas.width = 1080; canvas.height = 1080;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Card canvas unavailable");
   ctx.fillStyle = "#fbf9f3"; ctx.fillRect(0, 0, 1080, 1080);
   ctx.fillStyle = "#414348";
-  // Reuse the already-loaded header symbol, so branding cannot delay a new walk.
-  if (brandImage?.complete && brandImage.naturalWidth > 0) ctx.drawImage(brandImage, 48, 14, 60, 73.2);
+  ctx.font = '700 38px "Noto Sans KR", sans-serif';
+  ctx.fillText("저만치", 48, 73);
   ctx.textAlign = "right"; ctx.font = '400 21px "Noto Sans KR", sans-serif';
   ctx.fillText(details.date.replaceAll("-", "."), 1032, 70);
   ctx.drawImage(scene, 36, 108, 1008, 630);

@@ -13,8 +13,7 @@ button, canvas { user-select: none; -webkit-user-select: none; }
 .game-stage { position: relative; width: min(100vw, 160dvh); aspect-ratio: 8 / 5; overflow: hidden; overflow: clip; isolation: isolate; }
 .scene { display: block; width: 100%; height: 100%; touch-action: none; }
 .location { position: absolute; top: 1.75%; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: none; white-space: nowrap; }
-.location h1 { margin: 0 auto 4px; width: 72px; height: 88px; line-height: 0; }
-.game-logo { display: block; width: 100%; height: 100%; object-fit: contain; }
+.location h1 { margin: 0; font-size: clamp(20px, 1.77vw, 28px); line-height: 1.6; font-weight: 700; letter-spacing: 0.055em; }
 .climate-readout { margin: 1px 0 4px; font-size: clamp(11px, 0.85vw, 13px); line-height: 1.6; font-weight: 500; }
 .weather-credit { position: absolute; right: 12px; bottom: max(2px, env(safe-area-inset-bottom)); display: grid; align-items: center; min-height: 24px; padding: 2px 5px; border-radius: 3px; background: #fbf9f3d9; font-size: 9px; color: #414348; text-decoration-color: #41434870; text-underline-offset: 3px; }
 .weather-credit:focus-visible { outline: 2px solid #967133; outline-offset: 2px; }
@@ -87,7 +86,7 @@ kbd { font: 400 10px "Noto Sans KR", sans-serif; letter-spacing: 0.07em; opacity
 @media (max-aspect-ratio: 4/5) {
   .game-stage { width: 100vw; height: 100dvh; aspect-ratio: auto; }
   .location { top: max(18px, env(safe-area-inset-top)); }
-  .location h1 { width: 64px; height: 78px; }
+  .location h1 { font-size: 23px; letter-spacing: 0.035em; }
   .utilities { top: max(18px, env(safe-area-inset-top)); right: 8px; gap: 0; flex-direction: column; }
   .icon-button { width: 44px; height: 44px; padding: 10px; }
   .balance-controls { bottom: max(28px, env(safe-area-inset-bottom)); inset-inline: 22px; }
@@ -108,7 +107,6 @@ kbd { font: 400 10px "Noto Sans KR", sans-serif; letter-spacing: 0.07em; opacity
   .record-note { margin-bottom: 12px; }
 }
 @media (max-height: 540px) and (min-aspect-ratio: 4/5) {
-  .location h1 { width: 44px; height: 54px; margin-bottom: 2px; }
   .result-dialog { gap: 18px; padding: 16px; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); }
   .result-dialog .postcard-preview { align-self: center; }
   .result-dialog h2 { font-size: 20px; }
